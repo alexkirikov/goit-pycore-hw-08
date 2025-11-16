@@ -33,11 +33,55 @@ This version extends the HW07 functionality by adding automatic saving and loadi
 
 ## Data Validation
 
-### Phone number rules:
-- Must contain digits only
-- Must be exactly 10 digits
+### **1. Phone number validation**
+- Must contain **digits only**
+- Must be **exactly 10 digits**
+- Cannot be empty
+- Changing a phone requires the contact to have at least one phone
 
-All invalid inputs return friendly error messages.
+### **2. Name validation**
+- Name cannot be empty
+- Name must contain at least **one visible character**
+- Duplicate names are not allowed when adding a new contact
+
+### **3. Command arguments validation**
+Each command checks:
+- Correct **number of arguments**
+- Required parameters are provided
+- Unknown commands show an informative error
+- Empty input returns: “Please enter a command.”
+
+Examples:
+- `add` → requires exactly **2** arguments  
+- `change` → requires exactly **2** arguments  
+- `phone` → requires exactly **1** argument  
+
+### **4. Contact existence checks**
+Validations executed before running commands:
+- `change` — contact must exist  
+- `phone` — contact must exist  
+
+Errors return messages such as:
+> `"Error: Contact 'John' not found."`
+
+### **5. Storage validation**
+- If `addressbook.pkl` does not exist → a new empty AddressBook is created  
+- File read errors do **not** crash the program  
+- Data is always saved before exit
+
+### **6. Input safety & robustness**
+- Pressing `Ctrl+C` triggers a safe save → no data loss  
+- Empty or whitespace-only input is ignored  
+- Invalid formats never crash the program
+
+### **7. Error message formatting**
+All errors follow a consistent pattern:
+
+```
+Error: <description>
+```
+
+For better user experience and clarity.
 
 ---
 
